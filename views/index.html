@@ -1,0 +1,208 @@
+<html>
+  
+  <head>
+    <title>FCC ISQA Project - Personal Library</title>
+    <meta name="description" content="A cool thing made with HyperDev">
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/public/style.css">
+  </head>
+  
+  <body>
+    
+    <header>
+      <h1>
+        <b>ISQA Project</b> - Personal Library
+      </h1>
+    </header>
+    
+    <br>   
+      
+      <h2 style="text-align: left">Test API responses:</h2>
+
+    <hr>
+    
+      <h4>
+           BOOKS
+</h4>
+
+      <div id="byBookName">
+
+    <!--  forms can only do POST and GET http methods (and also something called dialog) but NO DELETE and NO PUT: -->
+          <form action="/api/books" method="post" class="border">
+            <h4>Test POST to /api/books</h4>
+            Book Title:<br>
+            <input type="text" name="title" value=""><br>
+            <input type="submit" value="Add Book" required>
+          </form>
+
+          <form action="/api/books" method="get" class="border">
+            <h4>Test GET to /api/books</h4>
+            <input type="submit" value="Get Library Catalog">
+          </form>
+
+          <form id="deleteLibrary" class="border">
+            <h4>Test DELETE to /api/books</h4>
+            <input type="submit" value="Delete Catalog">
+          </form>
+
+<!--           <div> 
+            <code id="msgBoard">
+
+            </code>
+          </div> -->
+
+        </div>
+   
+
+    <hr>
+
+      <div id="byBookID">
+            
+      <h4>
+         ID, COMMENTS
+      </h4>
+      
+      <form action="" method="post" id="addCommentToDoc" class="border">
+        <h4>Test POST to /api/books/{bookid}</h4>
+        BookId to comment on:<br>
+        <input type="text" name="id" value="" id="idPost" required><br>
+        Comment:<br>
+        <input type="text" name="comment" value="" required><br>
+        <input type="submit" value="Add Comment">
+      </form>
+      
+      <form action="" method="get" id="getBookDoc" class="border">
+        <h4>Test GET to /api/books/{bookid}</h4>
+        BookId whose document is to be displayed:<br>
+        <input type="text" name="id" value="" id="idGet" required><br>
+        <input type="submit" value="Get Book">
+      </form>
+      
+      <form id="deleteIdDoc" class="border">
+        <h4>Test DELETE to /api/books/{bookid}</h4>
+        BookId whose document is to be deleted:<br>
+        <input type="text" name="id" value="" id="idDel" required><br>
+        <input type="submit" value="Delete Book">
+      </form>
+      
+      
+      
+    </div>
+    
+    <hr>
+    
+      <div id="userstories">
+      
+      <h2>User stories:</h2>
+      
+      <ol>
+        <li>Nothing from my website will be cached in my client as a security measure.</li>
+        <li>I will see that the site is powered by 'PHP 4.2.0' even though it isn't as a security measure.</li>
+        <li>I can <b>post</b> a <code>title</code> to /api/books to add a book and returned will be the object with the <code>title</code> and a unique <code>_id</code>.</li>
+        <li>I can <b>get</b> /api/books to retrieve an aray of all books containing <code>title</code>, <code>_id</code>, & <code>commentcount</code>.</li>
+        <li>I can <b>get</b> /api/books/{_id} to retrieve a single object of a book containing <code>title</code>, <code>_id</code>, & an array of <code>comments</code> (empty array if no comments present).</li>
+        <li>I can <b>post</b> a <code>comment</code> to /api/books/{_id} to add a comment to a book and returned will be the books object similar to <b>get</b> /api/books/{_id}.</li>
+        <li>I can <b>delete</b> /api/books/{_id} to delete a book from the collection. Returned will be 'delete successful' if successful.</li>
+        <li>If I try to request a book that doesn't exist I will get a 'no book exists' message.</li>
+        <li>I can send a <b>delete</b> request to /api/books to delete all books in the database. Returned will be 'complete delete successful' if successful.</li>
+        <li>All 6 functional tests required are complete and passing.</li>
+      </ol>
+      
+      <br>
+      
+      <img src='https://cdn.gomix.com/d7932c52-287f-4dae-b175-631fef453000%2FScreen%20Shot%202016-12-16%20at%201.35.56%20AM.png' />
+      
+    </div>
+    
+    <hr>
+    
+<!--       <div id='sampleui'>
+      <h2 style="text-align: left">Sample Front-End:</h2>
+      <form id="newBookForm" class="border">
+        <input type="text" id="bookTitleToAdd" name="title" placeholder="New Book Title" style="width: 295px">
+        <button type="submit" value="Submit" id="newBook">Submit New Book!</button>
+      </form>
+      <div id='display'></div>          
+      <div id='bookDetail' class='border'>
+        <p id='detailTitle'>Select a book to see it's details and comments</p>
+        <ol id='detailComments'></ol>
+      </div>
+      <button id='deleteAllBooks'>Delete all books...</button>
+    </div> -->
+    
+    <hr>
+
+      <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+              integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+              crossorigin="anonymous"></script>
+
+      <script src="/public/client.js"></script>   
+
+      <script>
+
+        /*
+        *  For #sampleposting to update form action url to test inputs book id
+        */
+        $( function() {
+
+           $('#addCommentToDoc').submit( function(){
+             
+             var id = $('#idPost').val();
+             $(this).attr('action', "/api/books/" + id);
+             
+           });
+
+           // TODO: script for get book document
+           $('#getBookDoc').submit( function(e) {
+
+             var id = $('#idGet').val();
+             $(this).attr('action', "/api/books/" + id);
+
+           });
+
+           // TODO: script for delete all books:
+           $('#deleteLibrary').submit( function(e) {
+
+              $.ajax({
+                url: '/api/books',
+                method: 'delete',
+                success: function(data) {
+                  console.log(data);   
+                  alert(JSON.stringify(data));
+                }
+              });
+
+              e.preventDefault();
+
+          });
+
+           // TODO: script for delete book by _id:
+           $('#deleteIdDoc').submit( function(e) {
+             
+             var url = '/api/books/' + $('#idDel').val();
+             
+             console.log('to delete:',url);
+             
+             $.ajax({
+               url: url,
+               method: 'delete',
+               success: function(data) {
+                 console.log(data);
+                 alert(JSON.stringify(data));
+               }
+             })
+               
+             e.preventDefault();
+             
+           });
+
+        });
+
+     </script>
+    
+  </body>
+  
+</html>
